@@ -5,7 +5,10 @@ from modules import script_callbacks
 from modules.shared import opts
 
 def get_project_dirs():
-    return sorted([d for d in os.listdir(opts.projects_path) if os.path.isdir(os.path.join(opts.projects_path, d))])
+    if os.path.isdir(opts.projects_path):
+        return sorted([d for d in os.listdir(opts.projects_path) if os.path.isdir(os.path.join(opts.projects_path, d))])
+    else:
+        return []
 
 def report_outdirs():
     return f"""txt2img samples: {opts.outdir_txt2img_samples}
