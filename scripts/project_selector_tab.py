@@ -25,7 +25,7 @@ def update_outdirs(project_name):
         project_dir = os.path.join(opts.projects_path, project_name) if project_name else opts.projects_path
         if not os.path.exists(project_dir):
             os.makedirs(project_dir)
-        if original_outdir_samples:
+        if opts.original_outdir_samples:
             opts.set("outdir_samples", "")
         opts.set("outdir_txt2img_samples", os.path.join(project_dir, opts.projects_txt2img_samples_suffix))
         opts.set("outdir_img2img_samples", os.path.join(project_dir, opts.projects_img2img_samples_suffix))
@@ -47,14 +47,14 @@ def create_new_project(project_name):
     ]
 
 def reset_outdirs():
-    opts.set("outdir_samples", original_outdir_samples)
-    opts.set("outdir_txt2img_samples", original_outdir_txt2img_samples)
-    opts.set("outdir_img2img_samples", original_outdir_img2img_samples)
-    opts.set("outdir_grids", original_outdir_grids)
-    opts.set("outdir_txt2img_grids", original_outdir_txt2img_grids)
-    opts.set("outdir_img2img_grids", original_outdir_img2img_grids)
-    opts.set("outdir_extras_samples", original_outdir_extras_samples)
-    opts.set("outdir_save", original_outdir_save)
+    opts.set("outdir_samples", opts.original_outdir_samples)
+    opts.set("outdir_txt2img_samples", opts.original_outdir_txt2img_samples)
+    opts.set("outdir_img2img_samples", opts.original_outdir_img2img_samples)
+    opts.set("outdir_grids", opts.original_outdir_grids)
+    opts.set("outdir_txt2img_grids", opts.original_outdir_txt2img_grids)
+    opts.set("outdir_img2img_grids", opts.original_outdir_img2img_grids)
+    opts.set("outdir_extras_samples", opts.original_outdir_extras_samples)
+    opts.set("outdir_save", opts.original_outdir_save)
     return [ 
       gr.Dropdown.update(
         value = ""
@@ -102,14 +102,5 @@ def on_ui_tabs():
                 new_project_button.click(create_new_project, inputs=[new_project_textbox], outputs=[project_dropdown, project_output])
 
         return [(ui_component, "Project", "project_selector_tab")]
-
-original_outdir_samples = opts.outdir_samples
-original_outdir_txt2img_samples = opts.outdir_txt2img_samples
-original_outdir_img2img_samples = opts.outdir_img2img_samples
-original_outdir_grids = opts.outdir_grids
-original_outdir_txt2img_grids = opts.outdir_txt2img_grids
-original_outdir_img2img_grids = opts.outdir_img2img_grids
-original_outdir_extras_samples = opts.outdir_extras_samples
-original_outdir_save = opts.outdir_save
 
 script_callbacks.on_ui_tabs(on_ui_tabs)
