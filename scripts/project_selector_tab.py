@@ -103,4 +103,5 @@ def on_ui_tabs():
 
         return [(ui_component, "Project", "project_selector_tab")]
 
+reset_outdirs()
 script_callbacks.on_ui_tabs(on_ui_tabs)
